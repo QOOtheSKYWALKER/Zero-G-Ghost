@@ -1,5 +1,5 @@
 /* ============================================================
-   ZERO-G LAYER v2.0 — Newtab Logic
+   ZERO-G GHOST v6.2 — Newtab Logic
    ============================================================ */
 'use strict';
 
@@ -75,7 +75,7 @@ function startCacheClear() {
       : '✅ Done! Cache, IndexedDB, Service Workers and form data cleared.';
     cancelBtn.disabled = false;
     cancelBtn.textContent = 'Close';
-    setStatus('Cache cleared — Zero-G Layer');
+    setStatus('Cache cleared — Zero-G Ghost');
   });
 }
 
@@ -115,5 +115,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cache-close-x')    .addEventListener('click', closeCacheDialog);
 
   setTimeout(() => input.focus(), 100);
-  setStatus('Ready — Zero-G Layer Ghost v6.1');
+  setStatus('Ready — Zero-G Ghost v6.2');
 });
