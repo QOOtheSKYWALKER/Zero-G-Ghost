@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero-G Ghost | User Guide</title>
+    <style>
+        :root {
+            --bg-color: #008080;
+            --win-bg: #d4d0c8;
+            --win-blue: #08177c;
+            --accent-glow: #00f2ff;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --text-main: #000;
+            --text-white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma', 'Verdana', 'MS UI Gothic', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            background-image:
+                linear-gradient(rgba(0, 128, 128, 0.7), rgba(0, 50, 50, 0.9)),
+                radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 40%);
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Scanline effect - Moved behind content */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Glass Container (Base for Windows) */
+        .glass-panel {
+            position: relative;
+            z-index: 10;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .win-window {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: #fff #404040 #404040 #fff;
+            box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080, 4px 4px 16px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 0;
+        }
+
+        .win-titlebar {
+            background: linear-gradient(90deg, #08177c, #1464d4, #3a8cee);
+            color: white;
+            padding: 4px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 13px;
+            user-select: none;
+        }
+
+        .win-content {
+            padding: 24px;
+        }
+
+        header {
+            position: relative;
+            z-index: 20;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 42px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--accent-glow), 3px 3px 0 #000;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .tagline {
+            text-align: center;
+            color: var(--accent-glow);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--win-blue);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            font-size: 18px;
+            color: var(--win-blue);
+        }
+
+        p,
+        li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: #fff #404040 #404040 #fff;
+            cursor: pointer;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.1s;
+            border-radius: 0;
+        }
+
+        .btn:active {
+            border-color: #404040 #fff #fff #404040;
+            transform: translate(1px, 1px);
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, #00f2ff, #7000ff);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 24px;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 255, 0.5);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        code {
+            background: #eee;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .github-link {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 80px; /* Space for the fixed language switcher */
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .win-content {
+                padding: 16px;
+            }
+        }
+
+        table {
+            border: 1px solid #808080;
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="lang-switcher">
+        <button class="btn" onclick="switchLang()">日本語 / English</button>
+    </div>
+
+    <header>
+        <h1>Zero-G Ghost</h1>
+        <div class="tagline">v6.2 Stable — Minimalist Optimization &amp; Z-Axis Scan</div>
+    </header>
+
+    <!-- INTRODUCTION SECTION -->
+    <section class="glass-panel win-window">
+        <div class="win-titlebar">
+            <span>System Information</span>
+            <span>✕</span>
+        </div>
+        <div class="win-content">
+            <div class="lang-jp">
+                <h2>🛰️ 極限まで削ぎ落とされた Ghost エンジン</h2>
+                <p>Zero-G Ghost v6.2 は、ブラウザのネイティブ機能（content-visibility）を最大限に活用し、JS
+                    のオーバーヘッドをほぼゼロにした究極のミニマリスト版です。新たに 3D Occlusion Detection（遮蔽検知）を搭載し、見えない要素の描画を徹底的にサボります。</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👻</div>
+                        <strong>Ghost Engine</strong>
+                        <p>ブラウザ標準の C++ 層で描画を制御。CPU 負荷を極限まで低減。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📐</div>
+                        <strong>Z-Axis Analyzer</strong>
+                        <p>不透明な要素（壁）に隠れた画像や動画を検知し、描画を停止。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <strong>Stability First</strong>
+                        <p>WebGPU/Wasm を排除し、既存のサイト構造（YouTube/X等）との親和性を向上。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lang-en hidden">
+                <h2>🛰️ Stripped-down "Ghost" Engine</h2>
+                <p>Zero-G Ghost v6.2 is the ultimate minimalist edition, leveraging native browser features
+                    (content-visibility) to bring JS overhead to nearly zero. Now features 3D Occlusion Detection to
+                    aggressively cull hidden elements.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👻</div>
+                        <strong>Ghost Engine</strong>
+                        <p>Control rendering via native C++ layer. Minimal CPU impact.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📐</div>
+                        <strong>Z-Axis Analyzer</strong>
+                        <p>Detects and stops rendering for images/videos hidden behind opaque elements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <strong>Stability First</strong>
+                        <p>Removes WebGPU/Wasm dependencies for maximum compatibility with YouTube/X UI.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOBILE / BOOKMARKLET SECTION -->
+    <section class="glass-panel win-window" style="animation-delay: 0.1s;">
+        <div class="win-titlebar" style="background: linear-gradient(90deg, #ff0080, #7000ff);">
+            <span>Mobile Access - Bookmarklet Mode</span>
+            <span>✕</span>
+        </div>
+        <div class="win-content">
+            <div class="lang-jp">
+                <h2>📱 モバイル・ブックマークレット利用方法</h2>
+                <p>ブラウザ拡張機能が使えないモバイル環境や、一時的に最適化を行いたい場合に便利です。実行中は画面左下に <strong>Ghost インジケーター</strong>（👻）が表示されます。</p>
+                <p style="margin-top: 5px; font-size: 11px; color: #888;">
+                    <strong>最終更新:</strong> v6.2 (2026/03/25) - ガタつき防止と無限スクロール最適化を導入。
+                </p>
+
+                <table style="font-size: 12px; margin: 12px 0; border-collapse: collapse; width: 100%;">
+                    <tr>
+                        <td style="padding: 3px 8px;">◀ グレー</td>
+                        <td style="padding: 3px 8px;">待機中 — 現在、画面内に遮蔽なし</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 8px;">◀ グリーン</td>
+                        <td style="padding: 3px 8px;">実行中 — 1つ以上の要素を非表示化</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 8px;">◀ レッド</td>
+                        <td style="padding: 3px 8px;">警告 — 上限（512）に達した高負荷状態</td>
+                    </tr>
+                </table>
+
+                <h3 style="font-size: 13px; margin: 16px 0 10px;">① 下のリンクを長押し（またはドラッグ）して保存</h3>
+                <div
+                    style="text-align: center; margin: 16px 0; background: #eee; padding: 20px; border: 1px dashed #999;">
+                    <a href="javascript:(function(){if(window.__ZEROG_GHOST__)return;window.__ZEROG_GHOST__=true;var s=document.createElement('style');s.innerHTML='.zg-ghost-target{content-visibility:auto;contain-intrinsic-size:1px 500px;contain:paint layout style}.zg-hidden{content-visibility:hidden!important;visibility:hidden!important;contain:strict!important}.zg-ghost-target:not(.zg-hidden){animation:zg-fade-in .3s ease-out}@keyframes zg-fade-in{from{opacity:.8;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}';document.head.appendChild(s);const MAX=512,FIELDS=6,rectB=new Float32Array(MAX*FIELDS),occlR=new Uint8Array(MAX),visT=[];let _scP=false;const _wrap=document.createElement('div');_wrap.style.cssText='position:fixed;bottom:0;left:0;width:40px;height:40px;pointer-events:none;z-index:2147483647;overflow:hidden';const _gh=document.createElement('div');_gh.textContent='\ud83d\udc7b';_gh.style.cssText='position:absolute;bottom:1px;left:1px;font-size:16px;line-height:1;opacity:0.28';const _tri=document.createElement('div');_tri.style.cssText='position:absolute;inset:0;clip-path:polygon(0 100%,100% 100%,0 0);background:rgba(140,140,140,0.3);transition:background .35s ease';_wrap.appendChild(_gh);_wrap.appendChild(_tri);document.documentElement.appendChild(_wrap);function setInd(st){if(st==='alert')_tri.style.background='rgba(220,40,40,0.6)';else if(st==='active')_tri.style.background='rgba(30,200,90,0.55)';else _tri.style.background='rgba(140,140,140,0.3)'}function freezeSize(el){if(el.__zg_frozen__)return;const w=el.offsetWidth,h=el.offsetHeight;if(w>0&&h>0){el.style.width=w+'px';el.style.height=h+'px';el.__zg_frozen__=true}}function unfreezeSize(el){if(!el.__zg_frozen__)return;el.style.width='';el.style.height='';el.__zg_frozen__=false}function isL(e){const s=e.src||e.currentSrc||(e.getAttribute&&e.getAttribute('src'))||'';return/^(blob:|data:)/i.test(s)}function isO(c){if(!c||c==='transparent'||c==='rgba(0,0,0,0)')return !1;if(!c.match(/rgba?\([\d., ]+\)/))return !0;const p=c.match(/[\d.]+/g);return p&&p.length===4?parseFloat(p[3])>0.05:!0}function effZ(e){let n=e;while(n&&n!==document.documentElement){const z=parseInt(getComputedStyle(n).zIndex,10);if(!isNaN(z))return z;n=n.parentElement}return 0}function fC(bx,by,bw,bh,tx,ty,tw,th){return bx<=tx&&by<=ty&&(bx+bw)>=(tx+tw)&&(by+bh)>=(ty+th)}function runS(){_scP=!1;const c=visT.length;if(!c){setInd('idle');return}if(c>=MAX){setInd('alert')}for(let i=0;i<c;i++){const t=visT[i];if(!t||!t.isConnected||isL(t)){occlR[i]=0;continue}const r=t.getBoundingClientRect();if(r.width<=0||r.height<=0){occlR[i]=0;continue}const b=i*FIELDS;rectB[b]=r.left;rectB[b+1]=r.top;rectB[b+2]=r.width;rectB[b+3]=r.height;const cx=r.left+r.width*.5,cy=r.top+r.height*.5,inS=4,pts=[[cx,cy],[r.left+inS,r.top+inS],[r.right-inS,r.top+inS],[r.left+inS,r.bottom-inS],[r.right-inS,r.bottom-inS]];const tZ=effZ(t);let bl=!1;for(let p=0;p<pts.length;p++){const cds=document.elementsFromPoint(pts[p][0],pts[p][1]);for(let j=0;j<cds.length;j++){const blk=cds[j];if(blk===t||t.contains(blk)||blk.contains(t))continue;if(isL(blk))continue;const cs=getComputedStyle(blk),o=parseFloat(cs.opacity);if(o<.95)continue;if(!isO(cs.backgroundColor)&&!isO(cs.background))continue;const bZ=effZ(blk);if(bZ<=tZ)continue;const br=blk.getBoundingClientRect();if(fC(br.left,br.top,br.width,br.height,r.left,r.top,r.width,r.height)){bl=!0;break}}if(bl)break}occlR[i]=bl?1:0}let anyHid=false;for(let i=0;i<c;i++){const el=visT[i];if(!el)continue;if(occlR[i]===1){freezeSize(el);el.classList.add('zg-hidden');anyHid=true}else if(el.classList.contains('zg-hidden')&&el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}el.__zg_occluded__=(occlR[i]===1)}if(c<MAX)setInd(anyHid?'active':'idle')}function schS(){if(_scP)return;_scP=!0;('requestIdleCallback' in window)?requestIdleCallback(runS,{timeout:200}):setTimeout(runS,100)}const iO=new IntersectionObserver(es=>{for(let i=0;i<es.length;i++){const e=es[i],el=e.target,idx=visT.indexOf(el);if(e.isIntersecting){if(idx===-1&&visT.length<MAX)visT.push(el);if(!el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}if(el.tagName==='VIDEO'&&el.__zg_playing_state__)el.play().catch(()=>{})}else{if(idx!==-1){visT.splice(idx,1);el.__zg_occluded__=!1}if(isL(el))continue;freezeSize(el);el.classList.add('zg-hidden');if(el.tagName==='VIDEO'){el.__zg_playing_state__=!el.paused;el.pause()}}}schS()},{rootMargin:'400px 0px 400px 0px',threshold:0});const reg=el=>{if(el.__zg_registered__)return;const t=el.tagName;if(t==='IMG'||t==='VIDEO'||t==='IFRAME'||t==='PICTURE'){el.__zg_registered__=!0;el.classList.add('zg-ghost-target');iO.observe(el)}};const mO=new MutationObserver(ms=>{let nS=!1;for(let i=0;i<ms.length;i++){const ad=ms[i].addedNodes;for(let j=0;j<ad.length;j++){const n=ad[j];if(n.nodeType===1){if(n.tagName==='IMG'||n.tagName==='IFRAME'){if(!n.getAttribute('loading'))n.setAttribute('loading','lazy')}const lt=n.querySelectorAll('img,iframe');for(let k=0;k<lt.length;k++)if(!lt[k].getAttribute('loading'))lt[k].setAttribute('loading','lazy');reg(n);n.querySelectorAll('img,video,iframe,picture').forEach(reg);nS=!0}}}if(nS)schS()});const init=()=>{document.querySelectorAll('img,video,iframe,picture').forEach(reg);mO.observe(document.documentElement,{childList:!0,subtree:!0});console.log('[Zero-G Ghost] v6.2 Bookmarklet + Indicator engaged.')};(document.readyState==='loading')?document.addEventListener('DOMContentLoaded',init):init()})();"
+                        class="btn-modern"
+                        style="display: inline-block; padding: 12px 30px; text-decoration: none; min-width: 180px;"
+                        onclick="alert('このボタンをブックマークバーにドラッグするか、長押ししてお気に入りに追加してください。'); return false;">
+                        Zero-G Ghost
+                    </a>
+                </div>
+
+                <p style="font-size: 12px; color: #555;">
+                    Safari (iPhone/iPad) の場合：このボタンを長押し → ドラッグしながら、もう一方の指でお気に入り（ブックアイコン）を開き、ドロップして保存してください。
+                </p>
+                <p style="font-size: 12px; color: #555; margin-top: 5px;">
+                    PC の場合：このボタンをブックマークバーに直接ドラッグ＆ドロップしてください。
+                </p>
+            </div>
+
+            <div class="lang-en hidden">
+                <h2>📱 Bookmarklet Instructions</h2>
+                <p>Useful for mobile environments or whenever you want temporary optimization. A <strong>Ghost
+                        Indicator</strong> (👻) will appear in the bottom-left while active.</p>
+                <p style="margin-top: 5px; font-size: 11px; color: #888;">
+                    <strong>Latest Update:</strong> v6.2 (2026/03/25) - Improved flicker prevention and infinite scroll
+                    support.
+                </p>
+
+                <table style="font-size: 12px; margin: 12px 0; border-collapse: collapse; width: 100%;">
+                    <tr>
+                        <td style="padding: 3px 8px;">👻 Grey</td>
+                        <td style="padding: 3px 8px;">Idle — no occlusion detected</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 8px;">👻 Green</td>
+                        <td style="padding: 3px 8px;">Active — 1+ elements hidden</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 8px;">👻 Red</td>
+                        <td style="padding: 3px 8px;">Alert — 512-element cap reached</td>
+                    </tr>
+                </table>
+
+                <h3 style="font-size: 13px; margin: 16px 0 10px;">① Drag or Long-press to Save this Link</h3>
+                <div
+                    style="text-align: center; margin: 16px 0; background: #eee; padding: 20px; border: 1px dashed #999;">
+                    <a href="javascript:(function(){if(window.__ZEROG_GHOST__)return;window.__ZEROG_GHOST__=true;var s=document.createElement('style');s.innerHTML='.zg-ghost-target{content-visibility:auto;contain-intrinsic-size:1px 500px;contain:paint layout style}.zg-hidden{content-visibility:hidden!important;visibility:hidden!important;contain:strict!important}.zg-ghost-target:not(.zg-hidden){animation:zg-fade-in .3s ease-out}@keyframes zg-fade-in{from{opacity:.8;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}';document.head.appendChild(s);const MAX=512,FIELDS=6,rectB=new Float32Array(MAX*FIELDS),occlR=new Uint8Array(MAX),visT=[];let _scP=false;const _wrap=document.createElement('div');_wrap.style.cssText='position:fixed;bottom:0;left:0;width:40px;height:40px;pointer-events:none;z-index:2147483647;overflow:hidden';const _gh=document.createElement('div');_gh.textContent='\ud83d\udc7b';_gh.style.cssText='position:absolute;bottom:1px;left:1px;font-size:16px;line-height:1;opacity:0.28';const _tri=document.createElement('div');_tri.style.cssText='position:absolute;inset:0;clip-path:polygon(0 100%,100% 100%,0 0);background:rgba(140,140,140,0.3);transition:background .35s ease';_wrap.appendChild(_gh);_wrap.appendChild(_tri);document.documentElement.appendChild(_wrap);function setInd(st){if(st==='alert')_tri.style.background='rgba(220,40,40,0.6)';else if(st==='active')_tri.style.background='rgba(30,200,90,0.55)';else _tri.style.background='rgba(140,140,140,0.3)'}function freezeSize(el){if(el.__zg_frozen__)return;const w=el.offsetWidth,h=el.offsetHeight;if(w>0&&h>0){el.style.width=w+'px';el.style.height=h+'px';el.__zg_frozen__=true}}function unfreezeSize(el){if(!el.__zg_frozen__)return;el.style.width='';el.style.height='';el.__zg_frozen__=false}function isL(e){const s=e.src||e.currentSrc||(e.getAttribute&&e.getAttribute('src'))||'';return/^(blob:|data:)/i.test(s)}function isO(c){if(!c||c==='transparent'||c==='rgba(0,0,0,0)')return !1;if(!c.match(/rgba?\([\d., ]+\)/))return !0;const p=c.match(/[\d.]+/g);return p&&p.length===4?parseFloat(p[3])>0.05:!0}function effZ(e){let n=e;while(n&&n!==document.documentElement){const z=parseInt(getComputedStyle(n).zIndex,10);if(!isNaN(z))return z;n=n.parentElement}return 0}function fC(bx,by,bw,bh,tx,ty,tw,th){return bx<=tx&&by<=ty&&(bx+bw)>=(tx+tw)&&(by+bh)>=(ty+th)}function runS(){_scP=!1;const c=visT.length;if(!c){setInd('idle');return}if(c>=MAX){setInd('alert')}for(let i=0;i<c;i++){const t=visT[i];if(!t||!t.isConnected||isL(t)){occlR[i]=0;continue}const r=t.getBoundingClientRect();if(r.width<=0||r.height<=0){occlR[i]=0;continue}const b=i*FIELDS;rectB[b]=r.left;rectB[b+1]=r.top;rectB[b+2]=r.width;rectB[b+3]=r.height;const cx=r.left+r.width*.5,cy=r.top+r.height*.5,inS=4,pts=[[cx,cy],[r.left+inS,r.top+inS],[r.right-inS,r.top+inS],[r.left+inS,r.bottom-inS],[r.right-inS,r.bottom-inS]];const tZ=effZ(t);let bl=!1;for(let p=0;p<pts.length;p++){const cds=document.elementsFromPoint(pts[p][0],pts[p][1]);for(let j=0;j<cds.length;j++){const blk=cds[j];if(blk===t||t.contains(blk)||blk.contains(t))continue;if(isL(blk))continue;const cs=getComputedStyle(blk),o=parseFloat(cs.opacity);if(o<.95)continue;if(!isO(cs.backgroundColor)&&!isO(cs.background))continue;const bZ=effZ(blk);if(bZ<=tZ)continue;const br=blk.getBoundingClientRect();if(fC(br.left,br.top,br.width,br.height,r.left,r.top,r.width,r.height)){bl=!0;break}}if(bl)break}occlR[i]=bl?1:0}let anyHid=false;for(let i=0;i<c;i++){const el=visT[i];if(!el)continue;if(occlR[i]===1){freezeSize(el);el.classList.add('zg-hidden');anyHid=true}else if(el.classList.contains('zg-hidden')&&el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}el.__zg_occluded__=(occlR[i]===1)}if(c<MAX)setInd(anyHid?'active':'idle')}function schS(){if(_scP)return;_scP=!0;('requestIdleCallback' in window)?requestIdleCallback(runS,{timeout:200}):setTimeout(runS,100)}const iO=new IntersectionObserver(es=>{for(let i=0;i<es.length;i++){const e=es[i],el=e.target,idx=visT.indexOf(el);if(e.isIntersecting){if(idx===-1&&visT.length<MAX)visT.push(el);if(!el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}if(el.tagName==='VIDEO'&&el.__zg_playing_state__)el.play().catch(()=>{})}else{if(idx!==-1){visT.splice(idx,1);el.__zg_occluded__=!1}if(isL(el))continue;freezeSize(el);el.classList.add('zg-hidden');if(el.tagName==='VIDEO'){el.__zg_playing_state__=!el.paused;el.pause()}}}schS()},{rootMargin:'400px 0px 400px 0px',threshold:0});const reg=el=>{if(el.__zg_registered__)return;const t=el.tagName;if(t==='IMG'||t==='VIDEO'||t==='IFRAME'||t==='PICTURE'){el.__zg_registered__=!0;el.classList.add('zg-ghost-target');iO.observe(el)}};const mO=new MutationObserver(ms=>{let nS=!1;for(let i=0;i<ms.length;i++){const ad=ms[i].addedNodes;for(let j=0;j<ad.length;j++){const n=ad[j];if(n.nodeType===1){if(n.tagName==='IMG'||n.tagName==='IFRAME'){if(!n.getAttribute('loading'))n.setAttribute('loading','lazy')}const lt=n.querySelectorAll('img,iframe');for(let k=0;k<lt.length;k++)if(!lt[k].getAttribute('loading'))lt[k].setAttribute('loading','lazy');reg(n);n.querySelectorAll('img,video,iframe,picture').forEach(reg);nS=!0}}}if(nS)schS()});const init=()=>{document.querySelectorAll('img,video,iframe,picture').forEach(reg);mO.observe(document.documentElement,{childList:!0,subtree:!0});console.log('[Zero-G Ghost] v6.2 Bookmarklet + Indicator engaged.')};(document.readyState==='loading')?document.addEventListener('DOMContentLoaded',init):init()})();"
+                        class="btn-modern"
+                        style="display: inline-block; padding: 12px 30px; text-decoration: none; min-width: 180px;"
+                        onclick="alert('Drag this button to your bookmarks bar or long-press to save.'); return false;">
+                        Zero-G Ghost
+                    </a>
+                </div>
+                <p style="font-size: 12px; color: #555;">
+                    For Mobile: Long-press this button and drag it into your bookmarks icon.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTALLATION GUIDE -->
+    <section class="glass-panel win-window" style="animation-delay: 0.2s;">
+        <div class="win-titlebar" style="background: linear-gradient(90deg, #7000ff, #00f2ff);">
+            <span>Setup Wizard - Installation Guide</span>
+            <span>✕</span>
+        </div>
+        <div class="win-content">
+            <div class="lang-jp">
+                <h2>🛠️ インストール手順 (デベロッパーモード)</h2>
+                <ol style="margin-left: 20px;">
+                    <li>GitHubから最新のソースコードをダウンロードします。
+                        <div class="github-link">
+                            <a href="https://github.com/QOOtheSKYWALKER/Zero-G-Ghost" class="btn-modern"
+                                target="_blank">ソースをダウンロード (GitHub)</a>
+                        </div>
+                    </li>
+                    <li>Chromeを開き、アドレスバーに <code>chrome://extensions</code> と入力します。</li>
+                    <li>右上の<strong>「デベロッパーモード」</strong>スイッチをONにします。</li>
+                    <li><strong>「パッケージ化されていない拡張機能を読み込む」</strong>ボタンをクリックします。</li>
+                    <li>ダウンロードして展開した <code>Zero-G-Ghost</code> フォルダを選択します。</li>
+                    <li>新しいタブを開き、Zero-G Ghostの世界を楽しんでください！</li>
+                </ol>
+            </div>
+
+            <div class="lang-en hidden">
+                <h2>🛠️ Installation Steps (Developer Mode)</h2>
+                <ol style="margin-left: 20px;">
+                    <li>Download the latest source code from GitHub.
+                        <div class="github-link">
+                            <a href="https://github.com/QOOtheSKYWALKER/Zero-G-Ghost" class="btn-modern"
+                                target="_blank">Download Source (GitHub)</a>
+                        </div>
+                    </li>
+                    <li>Open Chrome and enter <code>chrome://extensions</code> in the address bar.</li>
+                    <li>Switch on the <strong>"Developer mode"</strong> toggle in the top right.</li>
+                    <li>Click the <strong>"Load unpacked"</strong> button.</li>
+                    <li>Select the extracted <code>Zero-G-Ghost</code> folder.</li>
+                    <li>Open a new tab and enjoy the world of Zero-G Ghost!</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL INSIGHT -->
+    <section class="glass-panel win-window" style="animation-delay: 0.3s;">
+        <div class="win-titlebar">
+            <span>Developer Console - Technical Insight</span>
+            <span>✕</span>
+        </div>
+        <div class="win-content">
+            <div class="lang-jp">
+                <h2>🧠 テクニカル・ハイライト</h2>
+                <p><strong>Visibility-Auto:</strong> ブラウザネイティブの C++ 層で描画を制御し、JS 実行を最小化。</p>
+                <p><strong>3D Scan Analysis:</strong> <code>elementsFromPoint</code>
+                    を活用し、自分より上に重なっている不透明な要素（遮蔽物）をミリ秒単位で特定、その下の描画を完全に停止します。</p>
+            </div>
+
+            <div class="lang-en hidden">
+                <h2>🧠 Technical Highlights</h2>
+                <p><strong>Visibility-Auto:</strong> Native C++ layer controlling rendering, minimizing JS overhead.</p>
+                <p><strong>3D Scan Analysis:</strong> Leverages <code>elementsFromPoint</code> to identify opaque
+                    blockers layered above elements in milliseconds, completely halting rendering underneath.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPDATE LOG -->
+    <section class="glass-panel win-window" style="animation-delay: 0.4s;">
+        <div class="win-titlebar" style="background: #555;">
+            <span>System Log - Update History</span>
+            <span>✕</span>
+        </div>
+        <div class="win-content" style="font-family: 'Courier New', monospace; font-size: 11px;">
+            <div class="lang-jp">
+                <p style="color: #000; font-weight: bold; margin-bottom: 5px;">[v6.2 Update - 2026/03/25]</p>
+                <p>- 名称を "Zero-G Ghost" に変更しコンセプトを統一。</p>
+                <p>- <strong>Size Freezing:</strong> 要素を隠す直前のサイズを固定し、ガタつきを防止。</p>
+                <p>- <strong>Infinite-Scroll Optimization:</strong> 新規要素への lazy-load 自動注入。</p>
+            </div>
+            <div class="lang-en hidden">
+                <p style="color: #000; font-weight: bold; margin-bottom: 5px;">[v6.2 Update - 2026/03/25]</p>
+                <p>- Renamed to "Zero-G Ghost" for cohesive branding.</p>
+                <p>- <strong>Size Freezing:</strong> Pins dimensions before hiding to prevent flickering.</p>
+                <p>- <strong>Infinite-Scroll Optimization:</strong> Automatic lazy-load injection for new nodes.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; color: rgba(255,255,255,0.5); font-size: 11px; position: relative; z-index: 10;">
+        &copy; 2026 Zero-G Ghost Project. All systems operational.
+    </footer>
+
+    <script>
+        let currentLang = 'jp';
+
+        function switchLang() {
+            const jpElements = document.querySelectorAll('.lang-jp');
+            const enElements = document.querySelectorAll('.lang-en');
+
+            if (currentLang === 'jp') {
+                jpElements.forEach(el => el.classList.add('hidden'));
+                enElements.forEach(el => el.classList.remove('hidden'));
+                currentLang = 'en';
+            } else {
+                jpElements.forEach(el => el.classList.remove('hidden'));
+                enElements.forEach(el => el.classList.add('hidden'));
+                currentLang = 'jp';
+            }
+        }
+    </script>
+</body>
+
+</html>
