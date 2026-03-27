@@ -237,7 +237,8 @@
         /* Responsive */
         @media (max-width: 600px) {
             body {
-                padding-top: 80px; /* Space for the fixed language switcher */
+                padding-top: 80px;
+                /* Space for the fixed language switcher */
             }
 
             h1 {
@@ -264,7 +265,7 @@
 
     <header>
         <h1>Zero-G Ghost</h1>
-        <div class="tagline">v6.2 Stable — Minimalist Optimization &amp; Z-Axis Scan</div>
+        <div class="tagline">v6.5 Stable — Minimalist Optimization &amp; Z-Axis Scan</div>
     </header>
 
     <!-- INTRODUCTION SECTION -->
@@ -276,7 +277,7 @@
         <div class="win-content">
             <div class="lang-jp">
                 <h2>🛰️ 極限まで削ぎ落とされた Ghost エンジン</h2>
-                <p>Zero-G Ghost v6.2 は、ブラウザのネイティブ機能（content-visibility）を最大限に活用し、JS
+                <p>Zero-G Ghost v6.5 は、ブラウザのネイティブ機能（content-visibility）を最大限に活用し、JS
                     のオーバーヘッドをほぼゼロにした究極のミニマリスト版です。新たに 3D Occlusion Detection（遮蔽検知）を搭載し、見えない要素の描画を徹底的にサボります。</p>
 
                 <div class="features-grid">
@@ -300,7 +301,7 @@
 
             <div class="lang-en hidden">
                 <h2>🛰️ Stripped-down "Ghost" Engine</h2>
-                <p>Zero-G Ghost v6.2 is the ultimate minimalist edition, leveraging native browser features
+                <p>Zero-G Ghost v6.5 is the ultimate minimalist edition, leveraging native browser features
                     (content-visibility) to bring JS overhead to nearly zero. Now features 3D Occlusion Detection to
                     aggressively cull hidden elements.</p>
 
@@ -334,22 +335,22 @@
         <div class="win-content">
             <div class="lang-jp">
                 <h2>📱 モバイル・ブックマークレット利用方法</h2>
-                <p>ブラウザ拡張機能が使えないモバイル環境や、一時的に最適化を行いたい場合に便利です。実行中は画面左下に <strong>Ghost インジケーター</strong>（👻）が表示されます。</p>
+                <p>ブラウザ拡張機能が使えないモバイル環境や、一時的に最適化を行いたい場合に便利です。実行中は画面左下に <strong>Ghost インジケーター</strong>が表示されます。</p>
                 <p style="margin-top: 5px; font-size: 11px; color: #888;">
-                    <strong>最終更新:</strong> v6.2 (2026/03/25) - ガタつき防止と無限スクロール最適化を導入。
+                    <strong>最終更新:</strong> v6.5 (2026/03/27) - ガタつき防止と無限スクロール最適化を導入。
                 </p>
 
                 <table style="font-size: 12px; margin: 12px 0; border-collapse: collapse; width: 100%;">
                     <tr>
-                        <td style="padding: 3px 8px;">◀ グレー</td>
+                        <td style="padding: 3px 8px;">👻 グレー</td>
                         <td style="padding: 3px 8px;">待機中 — 現在、画面内に遮蔽なし</td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 8px;">◀ グリーン</td>
+                        <td style="padding: 3px 8px;">👻 グリーン (#00de00)</td>
                         <td style="padding: 3px 8px;">実行中 — 1つ以上の要素を非表示化</td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 8px;">◀ レッド</td>
+                        <td style="padding: 3px 8px;">👻 レッド (#de0000)</td>
                         <td style="padding: 3px 8px;">警告 — 上限（512）に達した高負荷状態</td>
                     </tr>
                 </table>
@@ -357,8 +358,7 @@
                 <h3 style="font-size: 13px; margin: 16px 0 10px;">① 下のリンクを長押し（またはドラッグ）して保存</h3>
                 <div
                     style="text-align: center; margin: 16px 0; background: #eee; padding: 20px; border: 1px dashed #999;">
-                    <a href="javascript:(function(){if(window.__ZEROG_GHOST__)return;window.__ZEROG_GHOST__=true;var s=document.createElement('style');s.innerHTML='.zg-ghost-target{content-visibility:auto;contain-intrinsic-size:1px 500px;contain:paint layout style}.zg-hidden{content-visibility:hidden!important;visibility:hidden!important;contain:strict!important}.zg-ghost-target:not(.zg-hidden){animation:zg-fade-in .3s ease-out}@keyframes zg-fade-in{from{opacity:.8;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}';document.head.appendChild(s);const MAX=512,FIELDS=6,rectB=new Float32Array(MAX*FIELDS),occlR=new Uint8Array(MAX),visT=[];let _scP=false;const _wrap=document.createElement('div');_wrap.style.cssText='position:fixed;bottom:0;left:0;width:40px;height:40px;pointer-events:none;z-index:2147483647;overflow:hidden';const _gh=document.createElement('div');_gh.textContent='\ud83d\udc7b';_gh.style.cssText='position:absolute;bottom:1px;left:1px;font-size:16px;line-height:1;opacity:0.28';const _tri=document.createElement('div');_tri.style.cssText='position:absolute;inset:0;clip-path:polygon(0 100%,100% 100%,0 0);background:rgba(140,140,140,0.3);transition:background .35s ease';_wrap.appendChild(_gh);_wrap.appendChild(_tri);document.documentElement.appendChild(_wrap);function setInd(st){if(st==='alert')_tri.style.background='rgba(220,40,40,0.6)';else if(st==='active')_tri.style.background='rgba(30,200,90,0.55)';else _tri.style.background='rgba(140,140,140,0.3)'}function freezeSize(el){if(el.__zg_frozen__)return;const w=el.offsetWidth,h=el.offsetHeight;if(w>0&&h>0){el.style.width=w+'px';el.style.height=h+'px';el.__zg_frozen__=true}}function unfreezeSize(el){if(!el.__zg_frozen__)return;el.style.width='';el.style.height='';el.__zg_frozen__=false}function isL(e){const s=e.src||e.currentSrc||(e.getAttribute&&e.getAttribute('src'))||'';return/^(blob:|data:)/i.test(s)}function isO(c){if(!c||c==='transparent'||c==='rgba(0,0,0,0)')return !1;if(!c.match(/rgba?\([\d., ]+\)/))return !0;const p=c.match(/[\d.]+/g);return p&&p.length===4?parseFloat(p[3])>0.05:!0}function effZ(e){let n=e;while(n&&n!==document.documentElement){const z=parseInt(getComputedStyle(n).zIndex,10);if(!isNaN(z))return z;n=n.parentElement}return 0}function fC(bx,by,bw,bh,tx,ty,tw,th){return bx<=tx&&by<=ty&&(bx+bw)>=(tx+tw)&&(by+bh)>=(ty+th)}function runS(){_scP=!1;const c=visT.length;if(!c){setInd('idle');return}if(c>=MAX){setInd('alert')}for(let i=0;i<c;i++){const t=visT[i];if(!t||!t.isConnected||isL(t)){occlR[i]=0;continue}const r=t.getBoundingClientRect();if(r.width<=0||r.height<=0){occlR[i]=0;continue}const b=i*FIELDS;rectB[b]=r.left;rectB[b+1]=r.top;rectB[b+2]=r.width;rectB[b+3]=r.height;const cx=r.left+r.width*.5,cy=r.top+r.height*.5,inS=4,pts=[[cx,cy],[r.left+inS,r.top+inS],[r.right-inS,r.top+inS],[r.left+inS,r.bottom-inS],[r.right-inS,r.bottom-inS]];const tZ=effZ(t);let bl=!1;for(let p=0;p<pts.length;p++){const cds=document.elementsFromPoint(pts[p][0],pts[p][1]);for(let j=0;j<cds.length;j++){const blk=cds[j];if(blk===t||t.contains(blk)||blk.contains(t))continue;if(isL(blk))continue;const cs=getComputedStyle(blk),o=parseFloat(cs.opacity);if(o<.95)continue;if(!isO(cs.backgroundColor)&&!isO(cs.background))continue;const bZ=effZ(blk);if(bZ<=tZ)continue;const br=blk.getBoundingClientRect();if(fC(br.left,br.top,br.width,br.height,r.left,r.top,r.width,r.height)){bl=!0;break}}if(bl)break}occlR[i]=bl?1:0}let anyHid=false;for(let i=0;i<c;i++){const el=visT[i];if(!el)continue;if(occlR[i]===1){freezeSize(el);el.classList.add('zg-hidden');anyHid=true}else if(el.classList.contains('zg-hidden')&&el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}el.__zg_occluded__=(occlR[i]===1)}if(c<MAX)setInd(anyHid?'active':'idle')}function schS(){if(_scP)return;_scP=!0;('requestIdleCallback' in window)?requestIdleCallback(runS,{timeout:200}):setTimeout(runS,100)}const iO=new IntersectionObserver(es=>{for(let i=0;i<es.length;i++){const e=es[i],el=e.target,idx=visT.indexOf(el);if(e.isIntersecting){if(idx===-1&&visT.length<MAX)visT.push(el);if(!el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}if(el.tagName==='VIDEO'&&el.__zg_playing_state__)el.play().catch(()=>{})}else{if(idx!==-1){visT.splice(idx,1);el.__zg_occluded__=!1}if(isL(el))continue;freezeSize(el);el.classList.add('zg-hidden');if(el.tagName==='VIDEO'){el.__zg_playing_state__=!el.paused;el.pause()}}}schS()},{rootMargin:'400px 0px 400px 0px',threshold:0});const reg=el=>{if(el.__zg_registered__)return;const t=el.tagName;if(t==='IMG'||t==='VIDEO'||t==='IFRAME'||t==='PICTURE'){el.__zg_registered__=!0;el.classList.add('zg-ghost-target');iO.observe(el)}};const mO=new MutationObserver(ms=>{let nS=!1;for(let i=0;i<ms.length;i++){const ad=ms[i].addedNodes;for(let j=0;j<ad.length;j++){const n=ad[j];if(n.nodeType===1){if(n.tagName==='IMG'||n.tagName==='IFRAME'){if(!n.getAttribute('loading'))n.setAttribute('loading','lazy')}const lt=n.querySelectorAll('img,iframe');for(let k=0;k<lt.length;k++)if(!lt[k].getAttribute('loading'))lt[k].setAttribute('loading','lazy');reg(n);n.querySelectorAll('img,video,iframe,picture').forEach(reg);nS=!0}}}if(nS)schS()});const init=()=>{document.querySelectorAll('img,video,iframe,picture').forEach(reg);mO.observe(document.documentElement,{childList:!0,subtree:!0});console.log('[Zero-G Ghost] v6.2 Bookmarklet + Indicator engaged.')};(document.readyState==='loading')?document.addEventListener('DOMContentLoaded',init):init()})();"
-                        class="btn-modern"
+                    <a href="#" class="btn-modern btn-bookmarklet"
                         style="display: inline-block; padding: 12px 30px; text-decoration: none; min-width: 180px;"
                         onclick="alert('このボタンをブックマークバーにドラッグするか、長押ししてお気に入りに追加してください。'); return false;">
                         Zero-G Ghost
@@ -376,9 +376,9 @@
             <div class="lang-en hidden">
                 <h2>📱 Bookmarklet Instructions</h2>
                 <p>Useful for mobile environments or whenever you want temporary optimization. A <strong>Ghost
-                        Indicator</strong> (👻) will appear in the bottom-left while active.</p>
+                        Indicator</strong> will appear in the bottom-left while active.</p>
                 <p style="margin-top: 5px; font-size: 11px; color: #888;">
-                    <strong>Latest Update:</strong> v6.2 (2026/03/25) - Improved flicker prevention and infinite scroll
+                    <strong>Latest Update:</strong> v6.5 (2026/03/27) - Improved flicker prevention and infinite scroll
                     support.
                 </p>
 
@@ -388,11 +388,11 @@
                         <td style="padding: 3px 8px;">Idle — no occlusion detected</td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 8px;">👻 Green</td>
+                        <td style="padding: 3px 8px;">👻 Green (#00de00)</td>
                         <td style="padding: 3px 8px;">Active — 1+ elements hidden</td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 8px;">👻 Red</td>
+                        <td style="padding: 3px 8px;">👻 Red (#de0000)</td>
                         <td style="padding: 3px 8px;">Alert — 512-element cap reached</td>
                     </tr>
                 </table>
@@ -400,13 +400,13 @@
                 <h3 style="font-size: 13px; margin: 16px 0 10px;">① Drag or Long-press to Save this Link</h3>
                 <div
                     style="text-align: center; margin: 16px 0; background: #eee; padding: 20px; border: 1px dashed #999;">
-                    <a href="javascript:(function(){if(window.__ZEROG_GHOST__)return;window.__ZEROG_GHOST__=true;var s=document.createElement('style');s.innerHTML='.zg-ghost-target{content-visibility:auto;contain-intrinsic-size:1px 500px;contain:paint layout style}.zg-hidden{content-visibility:hidden!important;visibility:hidden!important;contain:strict!important}.zg-ghost-target:not(.zg-hidden){animation:zg-fade-in .3s ease-out}@keyframes zg-fade-in{from{opacity:.8;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}';document.head.appendChild(s);const MAX=512,FIELDS=6,rectB=new Float32Array(MAX*FIELDS),occlR=new Uint8Array(MAX),visT=[];let _scP=false;const _wrap=document.createElement('div');_wrap.style.cssText='position:fixed;bottom:0;left:0;width:40px;height:40px;pointer-events:none;z-index:2147483647;overflow:hidden';const _gh=document.createElement('div');_gh.textContent='\ud83d\udc7b';_gh.style.cssText='position:absolute;bottom:1px;left:1px;font-size:16px;line-height:1;opacity:0.28';const _tri=document.createElement('div');_tri.style.cssText='position:absolute;inset:0;clip-path:polygon(0 100%,100% 100%,0 0);background:rgba(140,140,140,0.3);transition:background .35s ease';_wrap.appendChild(_gh);_wrap.appendChild(_tri);document.documentElement.appendChild(_wrap);function setInd(st){if(st==='alert')_tri.style.background='rgba(220,40,40,0.6)';else if(st==='active')_tri.style.background='rgba(30,200,90,0.55)';else _tri.style.background='rgba(140,140,140,0.3)'}function freezeSize(el){if(el.__zg_frozen__)return;const w=el.offsetWidth,h=el.offsetHeight;if(w>0&&h>0){el.style.width=w+'px';el.style.height=h+'px';el.__zg_frozen__=true}}function unfreezeSize(el){if(!el.__zg_frozen__)return;el.style.width='';el.style.height='';el.__zg_frozen__=false}function isL(e){const s=e.src||e.currentSrc||(e.getAttribute&&e.getAttribute('src'))||'';return/^(blob:|data:)/i.test(s)}function isO(c){if(!c||c==='transparent'||c==='rgba(0,0,0,0)')return !1;if(!c.match(/rgba?\([\d., ]+\)/))return !0;const p=c.match(/[\d.]+/g);return p&&p.length===4?parseFloat(p[3])>0.05:!0}function effZ(e){let n=e;while(n&&n!==document.documentElement){const z=parseInt(getComputedStyle(n).zIndex,10);if(!isNaN(z))return z;n=n.parentElement}return 0}function fC(bx,by,bw,bh,tx,ty,tw,th){return bx<=tx&&by<=ty&&(bx+bw)>=(tx+tw)&&(by+bh)>=(ty+th)}function runS(){_scP=!1;const c=visT.length;if(!c){setInd('idle');return}if(c>=MAX){setInd('alert')}for(let i=0;i<c;i++){const t=visT[i];if(!t||!t.isConnected||isL(t)){occlR[i]=0;continue}const r=t.getBoundingClientRect();if(r.width<=0||r.height<=0){occlR[i]=0;continue}const b=i*FIELDS;rectB[b]=r.left;rectB[b+1]=r.top;rectB[b+2]=r.width;rectB[b+3]=r.height;const cx=r.left+r.width*.5,cy=r.top+r.height*.5,inS=4,pts=[[cx,cy],[r.left+inS,r.top+inS],[r.right-inS,r.top+inS],[r.left+inS,r.bottom-inS],[r.right-inS,r.bottom-inS]];const tZ=effZ(t);let bl=!1;for(let p=0;p<pts.length;p++){const cds=document.elementsFromPoint(pts[p][0],pts[p][1]);for(let j=0;j<cds.length;j++){const blk=cds[j];if(blk===t||t.contains(blk)||blk.contains(t))continue;if(isL(blk))continue;const cs=getComputedStyle(blk),o=parseFloat(cs.opacity);if(o<.95)continue;if(!isO(cs.backgroundColor)&&!isO(cs.background))continue;const bZ=effZ(blk);if(bZ<=tZ)continue;const br=blk.getBoundingClientRect();if(fC(br.left,br.top,br.width,br.height,r.left,r.top,r.width,r.height)){bl=!0;break}}if(bl)break}occlR[i]=bl?1:0}let anyHid=false;for(let i=0;i<c;i++){const el=visT[i];if(!el)continue;if(occlR[i]===1){freezeSize(el);el.classList.add('zg-hidden');anyHid=true}else if(el.classList.contains('zg-hidden')&&el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}el.__zg_occluded__=(occlR[i]===1)}if(c<MAX)setInd(anyHid?'active':'idle')}function schS(){if(_scP)return;_scP=!0;('requestIdleCallback' in window)?requestIdleCallback(runS,{timeout:200}):setTimeout(runS,100)}const iO=new IntersectionObserver(es=>{for(let i=0;i<es.length;i++){const e=es[i],el=e.target,idx=visT.indexOf(el);if(e.isIntersecting){if(idx===-1&&visT.length<MAX)visT.push(el);if(!el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}if(el.tagName==='VIDEO'&&el.__zg_playing_state__)el.play().catch(()=>{})}else{if(idx!==-1){visT.splice(idx,1);el.__zg_occluded__=!1}if(isL(el))continue;freezeSize(el);el.classList.add('zg-hidden');if(el.tagName==='VIDEO'){el.__zg_playing_state__=!el.paused;el.pause()}}}schS()},{rootMargin:'400px 0px 400px 0px',threshold:0});const reg=el=>{if(el.__zg_registered__)return;const t=el.tagName;if(t==='IMG'||t==='VIDEO'||t==='IFRAME'||t==='PICTURE'){el.__zg_registered__=!0;el.classList.add('zg-ghost-target');iO.observe(el)}};const mO=new MutationObserver(ms=>{let nS=!1;for(let i=0;i<ms.length;i++){const ad=ms[i].addedNodes;for(let j=0;j<ad.length;j++){const n=ad[j];if(n.nodeType===1){if(n.tagName==='IMG'||n.tagName==='IFRAME'){if(!n.getAttribute('loading'))n.setAttribute('loading','lazy')}const lt=n.querySelectorAll('img,iframe');for(let k=0;k<lt.length;k++)if(!lt[k].getAttribute('loading'))lt[k].setAttribute('loading','lazy');reg(n);n.querySelectorAll('img,video,iframe,picture').forEach(reg);nS=!0}}}if(nS)schS()});const init=()=>{document.querySelectorAll('img,video,iframe,picture').forEach(reg);mO.observe(document.documentElement,{childList:!0,subtree:!0});console.log('[Zero-G Ghost] v6.2 Bookmarklet + Indicator engaged.')};(document.readyState==='loading')?document.addEventListener('DOMContentLoaded',init):init()})();"
-                        class="btn-modern"
+                    <a href="#" class="btn-modern btn-bookmarklet"
                         style="display: inline-block; padding: 12px 30px; text-decoration: none; min-width: 180px;"
                         onclick="alert('Drag this button to your bookmarks bar or long-press to save.'); return false;">
                         Zero-G Ghost
                     </a>
                 </div>
+
                 <p style="font-size: 12px; color: #555;">
                     For Mobile: Long-press this button and drag it into your bookmarks icon.
                 </p>
@@ -488,12 +488,20 @@
         </div>
         <div class="win-content" style="font-family: 'Courier New', monospace; font-size: 11px;">
             <div class="lang-jp">
+                <p style="color: #000; font-weight: bold; margin-bottom: 5px;">[v6.5 Update - 2026/03/27]</p>
+                <p>- <strong>Per-Tab Pause:</strong> 拡張機能アイコンのクリックで、タブごとに個別に機能を一時停止可能に。</p>
+                <p>- <strong>Full Restore:</strong> 機能を停止させた際、ビューポートから外れて非表示になっていた要素を含め、全ての隠し要素を即座に元通りに表示。</p>
+                <br>
                 <p style="color: #000; font-weight: bold; margin-bottom: 5px;">[v6.2 Update - 2026/03/25]</p>
                 <p>- 名称を "Zero-G Ghost" に変更しコンセプトを統一。</p>
                 <p>- <strong>Size Freezing:</strong> 要素を隠す直前のサイズを固定し、ガタつきを防止。</p>
                 <p>- <strong>Infinite-Scroll Optimization:</strong> 新規要素への lazy-load 自動注入。</p>
             </div>
             <div class="lang-en hidden">
+                <p style="color: #000; font-weight: bold; margin-bottom: 5px;">[v6.5 Update - 2026/03/27]</p>
+                <p>- <strong>Per-Tab Pause:</strong> Extension icon click now safely toggles per-tab optimization without affecting other tabs.</p>
+                <p>- <strong>Full Restore:</strong> Pausing instantly unfreezes and restores all culled elements across the entire page, not just the viewport.</p>
+                <br>
                 <p style="color: #000; font-weight: bold; margin-bottom: 5px;">[v6.2 Update - 2026/03/25]</p>
                 <p>- Renamed to "Zero-G Ghost" for cohesive branding.</p>
                 <p>- <strong>Size Freezing:</strong> Pins dimensions before hiding to prevent flickering.</p>
@@ -523,6 +531,16 @@
                 currentLang = 'jp';
             }
         }
+    </script>
+    <script>
+        (function () {
+            const GHOST_PATH = "M8,1C4.134,1,1,4.134,1,8v7c1.168,0,1.168-2,2.333-2s1.168,2,2.333,2s1.168-2,2.333-2s1.168,2,2.333,2s1.168-2,2.333-2s1.168,2,2.333,2V8C15,4.134,11.866,1,8,1z M6,8.25c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25S6.69,8.25,6,8.25z M10,8.25c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25S10.69,8.25,10,8.25z";
+            const code = `(function(){if(window.__ZEROG_GHOST__)return;window.__ZEROG_GHOST__=true;const isD=window.matchMedia('(prefers-color-scheme:dark)').matches;const idlCol=isD?'#dedede':'#3a3a3a';var s=document.createElement('style');s.innerHTML='.zg-ghost-target{content-visibility:auto;contain-intrinsic-size:1px 500px;contain:paint layout style}.zg-hidden{content-visibility:hidden!important;visibility:hidden!important;contain:strict!important}.zg-ghost-target:not(.zg-hidden){animation:zg-fade-in .3s ease-out}@keyframes zg-fade-in{from{opacity:.8;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}';document.head.appendChild(s);const MAX=512,FIELDS=6,rectB=new Float32Array(MAX*FIELDS),occlR=new Uint8Array(MAX),visT=[];let _scP=false;const _wrap=document.createElement('div');_wrap.style.cssText='position:fixed;bottom:0;left:0;width:24px;height:24px;pointer-events:none;z-index:2147483647;opacity:0.7';_wrap.innerHTML='<svg viewBox=\"0 0 16 16\" style=\"width:100%;height:100%\"><path id=\"zg-gh-svg\" d=\"${GHOST_PATH}\" fill=\"'+idlCol+'\"/></svg>';document.documentElement.appendChild(_wrap);const _path=document.getElementById('zg-gh-svg');function setInd(st){if(st==='alert')_path.setAttribute('fill','#de0000');else if(st==='active')_path.setAttribute('fill','#00de00');else _path.setAttribute('fill',idlCol)}function freezeSize(el){if(el.__zg_frozen__)return;const w=el.offsetWidth,h=el.offsetHeight;if(w>0&&h>0){el.style.width=w+'px';el.style.height=h+'px';el.__zg_frozen__=true}}function unfreezeSize(el){if(!el.__zg_frozen__)return;el.style.width='';el.style.height='';el.__zg_frozen__=false}function isL(e){const s=e.src||e.currentSrc||(e.getAttribute&&e.getAttribute('src'))||'';return/^(blob:|data:)/i.test(s)}function isO(c){if(!c||c==='transparent'||c==='rgba(0,0,0,0)')return !1;if(!c.match(/rgba?\\([\\d., ]+\\)/))return !0;const p=c.match(/[\\d.]+/g);return p&&p.length===4?parseFloat(p[3])>0.05:!0}function effZ(e){let n=e;while(n&&n!==document.documentElement){const z=parseInt(getComputedStyle(n).zIndex,10);if(!isNaN(z))return z;n=n.parentElement}return 0}function fC(bx,by,bw,bh,tx,ty,tw,th){return bx<=tx&&by<=ty&&(bx+bw)>=(tx+tw)&&(by+bh)>=(tx+tw)&&(by+bh)>=(ty+th)}function runS(){_scP=!1;const c=visT.length;if(!c){setInd('idle');return}if(c>=MAX){setInd('alert')}for(let i=0;i<c;i++){const t=visT[i];if(!t||!t.isConnected||isL(t)){occlR[i]=0;continue}const r=t.getBoundingClientRect();if(r.width<=0||r.height<=0){occlR[i]=0;continue}const b=i*FIELDS;rectB[b]=r.left;rectB[b+1]=r.top;rectB[b+2]=r.width;rectB[b+3]=r.height;const cx=r.left+r.width*.5,cy=r.top+r.height*.5,inS=4,pts=[[cx,cy],[r.left+inS,r.top+inS],[r.right-inS,r.top+inS],[r.left+inS,r.bottom-inS],[r.right-inS,r.bottom-inS]];const tZ=effZ(t);let bl=!1;for(let p=0;p<pts.length;p++){const cds=document.elementsFromPoint(pts[p][0],pts[p][1]);for(let j=0;j<cds.length;j++){const blk=cds[j];if(blk===t||t.contains(blk)||blk.contains(t))continue;if(isL(blk))continue;const cs=getComputedStyle(blk),o=parseFloat(cs.opacity);if(o<.95)continue;if(!isO(cs.backgroundColor)&&!isO(cs.background))continue;const bZ=effZ(blk);if(bZ<=tZ)continue;const br=blk.getBoundingClientRect();if(fC(br.left,br.top,br.width,br.height,r.left,r.top,r.width,r.height)){bl=!0;break}}if(bl)break}occlR[i]=bl?1:0}let anyHid=false;for(let i=0;i<c;i++){const el=visT[i];if(!el)continue;if(occlR[i]===1){freezeSize(el);el.classList.add('zg-hidden');anyHid=true}else if(el.classList.contains('zg-hidden')&&el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}el.__zg_occluded__=(occlR[i]===1)}if(c<MAX)setInd(anyHid?'active':'idle')}function schS(){if(_scP)return;_scP=!0;('requestIdleCallback' in window)?requestIdleCallback(runS,{timeout:200}):setTimeout(runS,100)}const iO=new IntersectionObserver(es=>{for(let i=0;i<es.length;i++){const e=es[i],el=e.target,idx=visT.indexOf(el);if(e.isIntersecting){if(idx===-1&&visT.length<MAX)visT.push(el);if(!el.__zg_occluded__){unfreezeSize(el);el.classList.remove('zg-hidden')}if(el.tagName==='VIDEO'&&el.__zg_playing_state__)el.play().catch(()=>{})}else{if(idx!==-1){visT.splice(idx,1);el.__zg_occluded__=!1}if(isL(el))continue;freezeSize(el);el.classList.add('zg-hidden');if(el.tagName==='VIDEO'){el.__zg_playing_state__=!el.paused;el.pause()}}}schS()},{rootMargin:'400px 0px 400px 0px',threshold:0});const reg=el=>{if(el.__zg_registered__)return;const t=el.tagName;if(t==='IMG'||t==='VIDEO'||t==='IFRAME'||t==='PICTURE'){el.__zg_registered__=!0;el.classList.add('zg-ghost-target');iO.observe(el)}};const mO=new MutationObserver(ms=>{let nS=!1;for(let i=0;i<ms.length;i++){const ad=ms[i].addedNodes;for(let j=0;j<ad.length;j++){const n=ad[j];if(n.nodeType===1){if(n.tagName==='IMG'||n.tagName==='IFRAME'){if(!n.getAttribute('loading'))n.setAttribute('loading','lazy')}const lt=n.querySelectorAll('img,iframe');for(let k=0;k<lt.length;k++)if(!lt[k].getAttribute('loading'))lt[k].setAttribute('loading','lazy');reg(n);n.querySelectorAll('img,video,iframe,picture').forEach(reg);nS=!0}}}if(nS)schS()});const init=()=>{document.querySelectorAll('img,video,iframe,picture').forEach(reg);mO.observe(document.documentElement,{childList:true,subtree:true});console.log('[Zero-G Ghost] v6.5 Bookmarklet + Indicator engaged.')};(document.readyState==='loading')?document.addEventListener('DOMContentLoaded',init):init()})();`;
+
+            document.querySelectorAll('.btn-bookmarklet').forEach(btn => {
+                btn.href = "javascript:" + code;
+            });
+        })();
     </script>
 </body>
 

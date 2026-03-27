@@ -1,5 +1,5 @@
 /* ============================================================
-   ZERO-G GHOST v6.2 — Newtab Logic
+   ZERO-G GHOST v6.5 — Newtab Logic
    ============================================================ */
 'use strict';
 
@@ -115,5 +115,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cache-close-x')    .addEventListener('click', closeCacheDialog);
 
   setTimeout(() => input.focus(), 100);
-  setStatus('Ready — Zero-G Ghost v6.2');
+  setStatus('Ready — Zero-G Ghost v6.5');
 });

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zero-G Ghost",
-  "version": "6.2.0",
+  "version": "6.5.0",
   "description": "Extreme minimalist browser optimization. Native culling, occlusion detection, and zero-latency intersection monitoring.",
   "icons": {
     "16": "icon16.png",
@@ -19,11 +19,20 @@
   ],
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
-      "js": ["content.js"],
-      "css": ["style.css"],
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "style.css"
+      ],
       "run_at": "document_start",
       "all_frames": true
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }

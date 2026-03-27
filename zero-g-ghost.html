@@ -7,7 +7,7 @@
   <title>Zero-G Ghost</title>
   <style>
     /* ============================================================
-   ZERO-G GHOST v6.2 — Newtab UI
+   ZERO-G GHOST v6.5 — Newtab UI
    Y2K / Windows 2000 aesthetic — compact launcher
    ============================================================ */
 
@@ -114,13 +114,9 @@
     .logo-icon-wrap {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, #001040, #002880, #0040C0);
-      border: 1px solid #4080C0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 0 8px rgba(0, 80, 200, 0.4);
       flex-shrink: 0;
     }
 
@@ -541,7 +537,12 @@
   <div id="app-window">
 
     <div id="title-bar">
-      <div id="title-icon">👻</div>
+      <div id="title-icon" style="width:18px;height:18px;flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16" style="width:100%;height:100%;">
+          <path
+            d="M8,1C4.134,1,1,4.134,1,8v7c1.168,0,1.168-2,2.333-2s1.168,2,2.333,2s1.168-2,2.333-2s1.168,2,2.333,2s1.168-2,2.333-2s1.168,2,2.333,2V8C15,4.134,11.866,1,8,1z M6,8.25c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25S6.69,8.25,6,8.25z M10,8.25c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25S10.69,8.25,10,8.25z"
+            fill="white" />
+        </svg></div>
       <div id="title-text">Zero-G Ghost</div>
       <button class="win-btn" title="最小化">─</button>
       <button class="win-btn" title="最大化">□</button>
@@ -551,10 +552,15 @@
     <div id="window-body">
 
       <div class="logo-row">
-        <div class="logo-icon-wrap">👻</div>
+        <div class="logo-icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+            style="width:100%;height:100%;">
+            <path
+              d="M8,1C4.134,1,1,4.134,1,8v7c1.168,0,1.168-2,2.333-2s1.168,2,2.333,2s1.168-2,2.333-2s1.168,2,2.333,2s1.168-2,2.333-2s1.168,2,2.333,2V8C15,4.134,11.866,1,8,1z M6,8.25c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25S6.69,8.25,6,8.25z M10,8.25c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25S10.69,8.25,10,8.25z"
+              fill="#000040" />
+          </svg></div>
         <div class="logo-titles">
           <h1>Zero-G Ghost</h1>
-          <div class="tagline">PERFORMANCE &amp; CACHE UTILITY — v6.2</div>
+          <div class="tagline">PERFORMANCE &amp; CACHE UTILITY — v6.5</div>
         </div>
       </div>
 
