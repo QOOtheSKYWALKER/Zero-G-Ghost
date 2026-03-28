@@ -247,10 +247,12 @@
 
     // Sync theme on load and change
     const syncTheme = () => {
-      chrome.runtime.sendMessage({
-        type: 'UPDATE_STATUS',
-        isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
-      });
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+        chrome.runtime.sendMessage({
+          type: 'UPDATE_STATUS',
+          isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
+        });
+      }
     };
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
     syncTheme();

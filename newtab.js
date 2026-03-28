@@ -46,11 +46,11 @@ function stopPapers() {
 }
 
 function startCacheClear() {
-  const startBtn  = document.getElementById('cache-start-btn');
+  const startBtn = document.getElementById('cache-start-btn');
   const cancelBtn = document.getElementById('cache-cancel-btn');
-  const statusEl  = document.getElementById('cache-status-text');
-  const progBar   = document.getElementById('cache-progress-bar');
-  const progFill  = document.getElementById('cache-progress-fill');
+  const statusEl = document.getElementById('cache-status-text');
+  const progBar = document.getElementById('cache-progress-bar');
+  const progFill = document.getElementById('cache-progress-fill');
 
   startBtn.disabled = cancelBtn.disabled = true;
   progBar.style.display = 'block';
@@ -109,18 +109,20 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('click', e => { e.preventDefault(); navigate(el.dataset.url); });
   });
 
-  document.getElementById('btn-cache')        .addEventListener('click', openCacheDialog);
-  document.getElementById('cache-start-btn')  .addEventListener('click', startCacheClear);
-  document.getElementById('cache-cancel-btn') .addEventListener('click', closeCacheDialog);
-  document.getElementById('cache-close-x')    .addEventListener('click', closeCacheDialog);
+  document.getElementById('btn-cache').addEventListener('click', openCacheDialog);
+  document.getElementById('cache-start-btn').addEventListener('click', startCacheClear);
+  document.getElementById('cache-cancel-btn').addEventListener('click', closeCacheDialog);
+  document.getElementById('cache-close-x').addEventListener('click', closeCacheDialog);
 
   setTimeout(() => input.focus(), 100);
   // Sync theme
   const syncTheme = () => {
-    chrome.runtime.sendMessage({
-      type: 'UPDATE_STATUS',
-      isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
-    });
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+      chrome.runtime.sendMessage({
+        type: 'UPDATE_STATUS',
+        isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
+      });
+    }
   };
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
   syncTheme();
