@@ -7,14 +7,16 @@
 ```text
 Zero-G-Ghost/
 ├── manifest.json         # 拡張機能のマニフェスト (V3)
-├── content.js            # コア・エンジン (描画制御 & 遮蔽検知)
+├── background.js         # Service Worker (アイコン動的生成 & タブ別状態管理)
+├── content.js            # コア・エンジン (描画制御・遮蔽検知・タブ別一時停止)
 ├── style.css             # エンジン用スタイル (content-visibility 定義)
+├── index.html            # ユーザーガイド & ブックマークレット配布ページ
 ├── zero-g-ghost.html     # ニュータブ UI (Y2K/Windows 2000 スタイル)
-├── newtab.js             # ニュータブ用ロジック (キャッシュ削除・ナビゲーション)
-├── guide.html            # ユーザーガイド & ブックマークレット配布ページ
-├── icon16.png            # アイコン (16x16)
-├── icon48.png            # アイコン (48x48)
-└── icon128.png           # アイコン (128x128)
+├── newtab.js             # ニュータブ用ロジック (URLナビ・キャッシュ削除)
+├── favicon.svg           # 公式ファビコン (黒背景・白幽霊)
+├── icon16.png            # 拡張機能アイコン (16x16)
+├── icon48.png            # 拡張機能アイコン (48x48)
+└── icon128.png           # 拡張機能アイコン (128x128)
 ```
 
 ## ✨ 主な機能
