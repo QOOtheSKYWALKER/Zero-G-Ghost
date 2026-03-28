@@ -81,9 +81,13 @@ function updateIcon(tabId, status, isDark) {
 // Global detection and message handling
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'UPDATE_STATUS') {
-    if (request.isDark !== undefined) globalIsDark = request.isDark;
-    if (sender.tab) {
-      updateIcon(sender.tab.id, request.status || 'idle', globalIsDark);
+    if (request.isDark !== undefined) {
+      globalIsDark = request.isDark;
+      // Update global default for all tabs (including those without content scripts)
+      updateIcon(null, 'idle', globalIsDark);
+    }
+    if (sender.tab && request.status) {
+      updateIcon(sender.tab.id, request.status, globalIsDark);
     }
     sendResponse({ received: true });
   }

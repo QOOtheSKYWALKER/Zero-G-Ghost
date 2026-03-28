@@ -115,5 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cache-close-x')    .addEventListener('click', closeCacheDialog);
 
   setTimeout(() => input.focus(), 100);
+  // Sync theme
+  const syncTheme = () => {
+    chrome.runtime.sendMessage({
+      type: 'UPDATE_STATUS',
+      isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
+    });
+  };
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
+  syncTheme();
+
   setStatus('Ready — Zero-G Ghost v6.5');
 });

@@ -245,8 +245,16 @@
     document.querySelectorAll('img, video, iframe, picture').forEach(registerElement);
     mutationObserver.observe(document.documentElement, { childList: true, subtree: true });
 
-    // Ensure correct initial state is sent
-    chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', status: 'idle' });
+    // Sync theme on load and change
+    const syncTheme = () => {
+      chrome.runtime.sendMessage({
+        type: 'UPDATE_STATUS',
+        isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
+      });
+    };
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
+    syncTheme();
+
     console.log('[Zero-G Ghost] v6.5 — Ghost engine + Z-Axis Analyzer engaged.');
   };
 
