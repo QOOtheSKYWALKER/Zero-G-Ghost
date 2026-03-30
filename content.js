@@ -20,6 +20,10 @@
   let _scanPending = false;
   let isTabPaused = false;
 
+  // ── Dark mode: cached once, updated on system change ──────────────────────
+  const _darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+  let _isDark = _darkMQ.matches;
+
   // ── Local Resource Protection (blob: / data:) ──────────────────────────────
   function isLocalSrc(el) {
     const src = el.src || el.currentSrc || (el.getAttribute && el.getAttribute('src')) || '';
@@ -147,9 +151,8 @@
 
   function sendStatus(status) {
     if (isTabPaused && status !== 'paused') return;
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     try {
-      chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', status, isDark });
+      chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', status, isDark: _isDark });
     } catch (e) { }
   }
 
@@ -228,7 +231,6 @@
     if (msg.type === 'TOGGLE_PAUSE') {
       isTabPaused = !isTabPaused;
       if (isTabPaused) {
-        // Reset all registered elements
         document.querySelectorAll('.zg-ghost-target').forEach(el => {
           unfreezeSize(el); el.classList.remove('zg-hidden');
         });
@@ -241,21 +243,17 @@
 
   // ── Initialization ─────────────────────────────────────────────────────────
   const init = () => {
-    // Setup observers (they check isTabPaused in their callbacks)
     document.querySelectorAll('img, video, iframe, picture').forEach(registerElement);
     mutationObserver.observe(document.documentElement, { childList: true, subtree: true });
 
-    // Sync theme on load and change
-    const syncTheme = () => {
-      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
-        chrome.runtime.sendMessage({
-          type: 'UPDATE_STATUS',
-          isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
-        });
-      }
-    };
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
-    syncTheme();
+    // Update cached flag and notify background when system theme changes
+    _darkMQ.addEventListener('change', e => {
+      _isDark = e.matches;
+      try { chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', isDark: _isDark }); } catch (e) { }
+    });
+
+    // Initial theme sync (covers pages with no observable elements)
+    try { chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', isDark: _isDark }); } catch (e) { }
 
     console.log('[Zero-G Ghost] v6.5 — Ghost engine + Z-Axis Analyzer engaged.');
   };
