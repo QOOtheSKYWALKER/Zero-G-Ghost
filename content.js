@@ -1,5 +1,5 @@
 // ============================================================
-//  ZERO-G GHOST — v6.6 (Verified)
+//  ZERO-G GHOST — v6.7 (Verified)
 //  Ghost engine + Z-Axis Analyzer (Occlusion Detection)
 // ============================================================
 (function () {
@@ -260,7 +260,7 @@
     // Initial theme sync (covers pages with no observable elements)
     try { chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', isDark: _isDark }); } catch (e) { }
 
-    console.log('[Zero-G Ghost] v6.6 — Ghost engine + Z-Axis Analyzer engaged.');
+    console.log('[Zero-G Ghost] v6.7 — Ghost engine + Z-Axis Analyzer engaged.');
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

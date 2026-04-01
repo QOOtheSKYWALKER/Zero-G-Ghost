@@ -1,5 +1,5 @@
 /* ============================================================
-   ZERO-G GHOST v6.6 — Newtab Logic
+   ZERO-G GHOST v6.7 — Newtab Logic
    ============================================================ */
 'use strict';
 
@@ -84,11 +84,15 @@ function startCacheClear() {
 function navigate(raw) {
   raw = raw.trim();
   if (!raw) return;
-  if (!raw.includes('.') && !raw.startsWith('http'))
-    raw = 'https://www.google.com/search?q=' + encodeURIComponent(raw);
-  else if (!/^https?:\/\//i.test(raw))
-    raw = 'https://' + raw;
-  window.location.href = raw;
+
+  if (!raw.includes('.') && !raw.startsWith('http')) {
+    chrome.search.query({ text: raw, disposition: 'CURRENT_TAB' });
+  } else {
+    if (!/^https?:\/\//i.test(raw)) {
+      raw = 'https://' + raw;
+    }
+    window.location.href = raw;
+  }
 }
 
 // ── Status ────────────────────────────────────────────────────────────────────
@@ -117,15 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => input.focus(), 100);
   // Sync theme
   const syncTheme = () => {
-    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
-      chrome.runtime.sendMessage({
-        type: 'UPDATE_STATUS',
-        isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
-      });
-    }
+    chrome.runtime.sendMessage({
+      type: 'UPDATE_STATUS',
+      isDark: window.matchMedia('(prefers-color-scheme: dark)').matches
+    });
   };
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
   syncTheme();
 
-  setStatus('Ready — Zero-G Ghost v6.6');
+  setStatus('Ready — Zero-G Ghost v6.7');
 });

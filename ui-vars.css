@@ -1,0 +1,74 @@
+/* ============================================================ */
+/*  ZERO-G GHOST v6.7 — UI Design Tokens                        */
+/*  Shared CSS custom properties for all UI pages               */
+/*  (zero-g-ghost.html, index.html)                             */
+/*  NOTE: style.css (Ghost engine) is intentionally separate.  */
+/* ============================================================ */
+
+:root {
+  /* ── Surface Colors ────────────────────────────────────────── */
+  --clr-win-bg:           #D4D0C8;  /* window / button surface (Win2K gray) */
+  --clr-win-bg-hover:     #E8E4DC;  /* raised surface on hover */
+  --clr-win-bg-subtle:    #E0DCCC;  /* slightly lighter hover variant */
+  --clr-win-bg-dark:      #C0BCB8;  /* darker surface / scrollbar thumb */
+  --clr-win-bg-darker:    #B4B0B0;  /* scrollbar thumb hover */
+  --clr-stage-bg:         #EAE6DE;  /* inset stage / animation area */
+  --clr-input-bg:         #FFFFFF;  /* text input / list background */
+  --clr-desktop:          #008080;  /* teal desktop background */
+
+  /* ── Bevel / Border Colors ─────────────────────────────────── */
+  /* Windows 2000 raised-look: light top-left, dark bottom-right */
+  --clr-bevel-light:      #FFFFFF;  /* highlight edge */
+  --clr-bevel-dark:       #404040;  /* shadow edge */
+  --clr-bevel-mid:        #808080;  /* mid-level border */
+  --clr-bevel-subtle:     #DFDFDB;  /* subtle inner highlight */
+  --clr-border-section:   #C0BCBC;  /* dividers between sections */
+  --clr-border-input:     #C0C8E0;  /* input / list borders (blue tint) */
+
+  /* ── Titlebar Gradient ──────────────────────────────────────── */
+  --clr-title-from:       #08177C;
+  --clr-title-mid:        #1464D4;
+  --clr-title-to:         #3A8CEE;
+
+  /* ── Brand / Accent Colors ─────────────────────────────────── */
+  --clr-navy:             #000080;  /* primary brand navy */
+  --clr-navy-hover:       #0000A0;
+  --clr-navy-dark:        #000040;  /* deep navy for logos / headlines */
+  --clr-navy-btn-light:   #4040C0;  /* primary button bevel highlight */
+  --clr-accent-glow:      #00F2FF;  /* cyan glow (index page accent) */
+  --clr-accent-violet:    #7000FF;  /* violet accent (index page gradient) */
+
+  /* ── Progress Bar ───────────────────────────────────────────── */
+  --clr-progress-from:    #000080;
+  --clr-progress-mid:     #0050D0;
+  --clr-progress-to:      #0080FF;
+
+  /* ── Close Button ───────────────────────────────────────────── */
+  --clr-close-bg:         #C0392B;
+  --clr-close-hover:      #E74C3C;
+  --clr-close-bevel-l:    #FF8888;
+  --clr-close-bevel-d:    #800000;
+
+  /* ── Text Colors ────────────────────────────────────────────── */
+  --clr-text-main:        #000000;
+  --clr-text-white:       #FFFFFF;
+  --clr-text-muted:       #606080;  /* section labels, secondary info */
+  --clr-text-status:      #202040;  /* dialog status text */
+
+  /* ── Glass / Overlay (index.html) ───────────────────────────── */
+  --clr-glass-bg:         rgba(255, 255, 255, 0.15);
+  --clr-glass-border:     rgba(255, 255, 255, 0.2);
+
+  /* ── Typography ─────────────────────────────────────────────── */
+  --font-ui:              Tahoma, Verdana, 'MS UI Gothic', Arial, sans-serif;
+  --font-mono:            'Courier New', monospace;
+
+  --font-sz-xs:           10px;
+  --font-sz-sm:           11px;
+  --font-sz-md:           13px;
+  --font-sz-body:         14px;
+  --font-sz-h1:           42px;
+  --font-sz-h1-mobile:    32px;
+  --font-sz-h2:           18px;
+  --font-sz-h1-newtab:    15px;  /* compact h1 inside newtab window */
+}

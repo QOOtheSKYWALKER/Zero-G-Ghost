@@ -1,4 +1,4 @@
-# Zero-G Ghost v6.6
+# Zero-G Ghost v6.7
 
 **Zero-G Ghost** は、ブラウザの描画負荷を極限まで低減するために設計された、超軽量かつ強力なレンダリング最適化エンジンです。Google Chrome 拡張機能、およびモバイル対応のブックマークレットとして動作します。
 
@@ -11,8 +11,11 @@ Zero-G-Ghost/
 ├── content.js            # コア・エンジン (描画制御・遮蔽検知・タブ別一時停止)
 ├── style.css             # エンジン用スタイル (content-visibility 定義)
 ├── index.html            # ユーザーガイド & ブックマークレット配布ページ
+├── index.css             # ユーザーガイド専用スタイル
 ├── zero-g-ghost.html     # ニュータブ UI (Y2K/Windows 2000 スタイル)
-├── newtab.js             # ニュータブ用ロジック (URLナビ・キャッシュ削除)
+├── zero-g-ghost.css      # ニュータブ UI 専用スタイル
+├── ui-vars.css           # 共有デザイン・トークン (CSS Variables)
+├── newtab.js             # ニュータブ用ロジック (検索・URLナビ・キャッシュ削除)
 ├── favicon.svg           # 公式ファビコン (黒背景・白幽霊)
 ├── icon16.png            # 拡張機能アイコン (16x16)
 ├── icon48.png            # 拡張機能アイコン (48x48)
@@ -31,6 +34,8 @@ Zero-G-Ghost/
     - DOM の変更を監視し、新しく追加された画像や Iframe に対して自動的に `loading="lazy"` を注入します。
 5.  **Y2K Aesthetic Newtab**:
     - Windows 2000 スタイルの軽量なニュータブ画面を提供。強力なキャッシュ・インデックス DB 削除機能を搭載しています。
+6.  **UI Design Tokens (CSS Variables)**:
+    - `ui-vars.css` を通じてデザインシステムを一元管理。人間にとっても AI にとっても見通しが良く、メンテナンス性の高いスタイル設計を採用しています。
 
 ## 🛠️ 技術詳細・主要関数
 
