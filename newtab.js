@@ -1,5 +1,5 @@
 /* ============================================================
-   ZERO-G GHOST v6.5 — Newtab Logic
+   ZERO-G GHOST v6.6 — Newtab Logic
    ============================================================ */
 'use strict';
 
@@ -127,5 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
   syncTheme();
 
-  setStatus('Ready — Zero-G Ghost v6.5');
+  setStatus('Ready — Zero-G Ghost v6.6');
 });

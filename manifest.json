@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zero-G Ghost",
-  "version": "6.5.0",
+  "version": "6.6.0",
   "description": "Extreme minimalist browser optimization. Native culling, occlusion detection, and zero-latency intersection monitoring.",
   "icons": {
     "16": "icon16.png",

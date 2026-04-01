@@ -1,13 +1,12 @@
 /* ============================================================ */
-/*  ZERO-G GHOST v6.5 — Minimal Engine                          */
+/*  ZERO-G GHOST v6.6 — Minimal Engine                          */
 /*  Leveraging native browser content-visibility & containment  */
 /* ============================================================ */
 
 /* Declarative browser culling optimization */
 .zg-ghost-target {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 500px;
-  /* Vertical estimate to reduce layout shift */
+  contain-intrinsic-size: auto; /* Let browser measure actual size; avoids layout shift from fixed estimates */
   contain: paint layout style;
 }
 
@@ -15,8 +14,7 @@
 .zg-hidden {
   content-visibility: hidden !important;
   visibility: hidden !important;
-  contain: strict !important;
-  /* Maximum optimization when completely off-screen */
+  contain: strict !important; /* Maximum optimization when completely off-screen */
 }
 
 /* Optional: Slight fade-in when entering the viewport for smoother experience */
@@ -25,13 +23,6 @@
 }
 
 @keyframes zg-fade-in {
-  from {
-    opacity: 0.8;
-    transform: translateY(5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0.8; transform: translateY(5px); }
+  to   { opacity: 1;   transform: translateY(0); }
 }

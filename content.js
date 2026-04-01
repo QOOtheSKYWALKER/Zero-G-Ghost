@@ -1,5 +1,5 @@
 // ============================================================
-//  ZERO-G GHOST — v6.5 (Verified)
+//  ZERO-G GHOST — v6.6 (Verified)
 //  Ghost engine + Z-Axis Analyzer (Occlusion Detection)
 // ============================================================
 (function () {
@@ -164,6 +164,11 @@
   }
 
   // ── IntersectionObserver ───────────────────────────────────────────────────
+  // Viewport-adaptive margin: 80% of screen height, clamped to [150, 600]px.
+  // Avoids blank flashes on large displays and over-loading on mobile.
+  const _margin = Math.round(Math.min(Math.max(window.innerHeight * 0.8, 150), 600));
+  const _rootMargin = _margin + 'px 0px ' + _margin + 'px 0px';
+
   const intersectionObserver = new IntersectionObserver((entries) => {
     if (isTabPaused) return;
     for (let i = 0; i < entries.length; i++) {
@@ -189,7 +194,7 @@
       }
     }
     scheduleScan();
-  }, { rootMargin: '400px 0px 400px 0px', threshold: 0 });
+  }, { rootMargin: _rootMargin, threshold: 0 });
 
   const registerElement = (el) => {
     if (el.__zg_registered__) return;
@@ -255,7 +260,7 @@
     // Initial theme sync (covers pages with no observable elements)
     try { chrome.runtime.sendMessage({ type: 'UPDATE_STATUS', isDark: _isDark }); } catch (e) { }
 
-    console.log('[Zero-G Ghost] v6.5 — Ghost engine + Z-Axis Analyzer engaged.');
+    console.log('[Zero-G Ghost] v6.6 — Ghost engine + Z-Axis Analyzer engaged.');
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

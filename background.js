@@ -1,5 +1,5 @@
 /**
- * ZERO-G GHOST — v6.5
+ * ZERO-G GHOST — v6.6
  * Global Pause Toggle + Prohibited Mark Icon
  */
 
